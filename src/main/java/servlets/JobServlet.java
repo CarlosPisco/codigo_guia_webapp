@@ -32,8 +32,7 @@ public class JobServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "crear":
-                HttpSession session = request.getSession();
-                session.setAttribute("estado","creado");
+
 
 
                 view = request.getRequestDispatcher("/job/nuevoTrabajo.jsp");
