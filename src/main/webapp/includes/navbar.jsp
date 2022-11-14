@@ -12,7 +12,7 @@
                     <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/EmployeeServlet">Empleados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/JobServlet">Trabajos</a>
+                    <a class="nav-link active" href="<%=request.getContextPath()%>/JobServlet">Trabajos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Departamentos</a>

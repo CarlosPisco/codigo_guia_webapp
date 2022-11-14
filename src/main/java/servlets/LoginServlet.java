@@ -13,9 +13,11 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion")==null?"login": request.getParameter("accion");
+        HttpSession session;
+
         switch (accion){
             case "login":
-                HttpSession session = request.getSession();
+                 session = request.getSession();
                 if(session.getAttribute("usuario")==null){
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                     view.forward(request,response);
@@ -25,9 +27,9 @@ public class LoginServlet extends HttpServlet {
 
                 break;
             case "logout":
-                HttpSession session2 = request.getSession();
-                session2.invalidate();
-                response.sendRedirect(request.getContextPath()+"/EmployeeServlet");
+                 session = request.getSession();
+                session.invalidate();
+                response.sendRedirect(request.getContextPath()+"/login.jsp");
                 break;
         }
 
