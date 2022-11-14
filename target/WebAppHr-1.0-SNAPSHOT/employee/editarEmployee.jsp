@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Employee e = request.getAttribute("employee") == null ? null : (Employee) request.getAttribute("employee");
+    String error1 = request.getAttribute("errorCasteo")==null? null : (String) request.getAttribute("errorCasteo");
 %>
 <jsp:useBean id="listaTrabajos" type="java.util.ArrayList<beans.Job>" scope="request"></jsp:useBean>
 <jsp:useBean id="listaEmpleados" type="java.util.ArrayList<beans.Employee>" scope="request"></jsp:useBean>
@@ -55,11 +56,21 @@
             <label class="form-label">Salary</label>
             <input type="text" class="form-control" name="salario" value="<%=e==null?"":e.getSalary()%>">
         </div>
-        <div class="mb-3">
-            <label class="form-label">Comision PCT</label>
-            <input type="text" class="form-control" name="comision"
-                   value="<%=e==null?"":(e.getCommissionPct()==null?"-":e.getCommissionPct())%>">
-        </div>
+
+
+            <div class="mb-3">
+                <label class="form-label">Comision PCT</label>
+                <input type="text" class="form-control <%=error1!=null?"is-invalid":""%>" name="comision"
+                       value="<%=e==null?"":(e.getCommissionPct()==null?"-":e.getCommissionPct())%>">
+                <%if(error1!=null){%>
+                <div  class="invalid-feedback">
+                    <%=error1%>
+                </div>
+                <%}%>
+            </div>
+
+
+
         <div class="mb-3">
             <label class="form-label">Manager</label>
             <select class="form-select" aria-label="Default select example" name="managerId">

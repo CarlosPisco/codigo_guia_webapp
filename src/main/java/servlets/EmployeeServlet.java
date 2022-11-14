@@ -31,8 +31,7 @@ public class EmployeeServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "crear":
-                HttpSession session = request.getSession();
-                session.setAttribute("estado","creado");
+
 
                 request.setAttribute("listaTrabajos",jobDao.obtenerTrabajos());
                 request.setAttribute("listaEmpleados",employeeDao.obtenerEmpleados());
@@ -68,6 +67,11 @@ public class EmployeeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EmployeeDao employeeDao = new EmployeeDao();
+        HttpSession session = request.getSession();
+        JobDao jobDao = new JobDao();
+        DepartmentDao departmentDao = new DepartmentDao();
+        RequestDispatcher view;
+
 
         String idEmployee = request.getParameter("idEmployee");
 
@@ -82,7 +86,7 @@ public class EmployeeServlet extends HttpServlet {
         e.setJob(job);
 
         e.setSalary(new BigDecimal(request.getParameter("salario")));
-        e.setCommissionPct(new BigDecimal(request.getParameter("comision")));
+
 
         Employee manager = new Employee();
         manager.setEmployeeId(Integer.parseInt(request.getParameter("managerId")));
@@ -92,11 +96,30 @@ public class EmployeeServlet extends HttpServlet {
         department.setDepartmentId(Integer.parseInt(request.getParameter("departmentId")));
         e.setDepartment(department);
 
+
+        try{
+            e.setCommissionPct(new BigDecimal(request.getParameter("comision")));
+
+        }catch (Exception e1){
+            request.setAttribute("employee",e);
+            request.setAttribute("errorCasteo","Pon un numero en comision p huevon");
+
+
+
+            request.setAttribute("listaTrabajos",jobDao.obtenerTrabajos());
+            request.setAttribute("listaEmpleados",employeeDao.obtenerEmpleados());
+            request.setAttribute("listaDepartamentos",departmentDao.obtenerDepartamentos());
+            view = request.getRequestDispatcher("/employee/editarEmployee.jsp");
+            view.forward(request, response);
+        }
+
         if (idEmployee != null) {
             e.setEmployeeId(Integer.parseInt(idEmployee));
             employeeDao.actualizarEmpleado(e);
+            session.setAttribute("estado","actualizado");
         } else {
             employeeDao.guardarEmpleado(e);
+            session.setAttribute("estado","creado");
         }
 
         response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
