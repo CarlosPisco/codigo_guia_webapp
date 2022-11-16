@@ -17,6 +17,7 @@ public class LoginServlet extends HttpServlet {
 
         switch (accion){
             case "login":
+                //para que no pueda volver a login si esta logueado
                  session = request.getSession();
                 if(session.getAttribute("usuario")==null){
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
@@ -27,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 
                 break;
             case "logout":
+                //se desloguea usando el boton de desloguear xd
                  session = request.getSession();
                 session.invalidate();
                 response.sendRedirect(request.getContextPath()+"/login.jsp");
