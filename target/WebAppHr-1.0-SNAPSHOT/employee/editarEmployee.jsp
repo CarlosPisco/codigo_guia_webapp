@@ -62,6 +62,9 @@
                 <label class="form-label">Comision PCT</label>
                 <input type="text" class="form-control <%=error1!=null?"is-invalid":""%>" name="comision"
                        value="<%=e==null?"":(e.getCommissionPct()==null?"-":e.getCommissionPct())%>">
+                        <!-- Si el empleado es nulo estamos creando uno nuevo,
+                           Si existe lo estamos editando, y si no tiene comision ponemos "-"
+                           De lo contrario ponemos el porcentaje de comison que posee-->
                 <%if(error1!=null){%>
                 <div  class="invalid-feedback">
                     <%=error1%>

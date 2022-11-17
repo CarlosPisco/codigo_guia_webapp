@@ -15,7 +15,7 @@
         <input type="text" name="inputEmail" class="form-control mt-3" placeholder="Correo" autofocus="">
         <input type="password" name="inputPassword" class="form-control mt-1" placeholder="Password">
         <% if (request.getParameter("error") != null) { %>
-        <div class="text-danger mb-2">Error en usuario o contraseña</div>
+        <div class="text-danger mb-2">Error en el email o contraseña</div>
         <% } %>
         <button class="btn btn-lg btn-secondary btn-block mt-3" type="submit">Sign in</button>
     </form>
